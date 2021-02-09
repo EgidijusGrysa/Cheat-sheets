@@ -1,0 +1,1 @@
+grep -i --color duration postgresql.log.2020-11-09-1* | awk '{print $5$6}' | sort -n
