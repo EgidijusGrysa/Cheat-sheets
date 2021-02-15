@@ -1,0 +1,26 @@
+https://www.postgresql.org/ftp/source/
+
+==== Download required packages ====
+
+   sudo yum install tcl-devel
+   sudo yum install readline-devel
+   sudo yum install gcc
+   sudo yum install zlib-devel -y
+   sudo yum install openssl-devel -----> for SSL
+   
+   
+- wget https://ftp.postgresql.org/pub/source/v9.5.7/postgresql-9.5.7.tar.gz -O pg-9.5.7.tar.gz
+- tar -xzf pg-9.5.7.tar.gz
+- ./configure --prefix=/home/ec2-user/base --with-openssl ---> prefix is dir for where binaries will be installed
+- make
+- make install
+
+==== Post Instalation ====
+
+  - Load lib direcotry to share library cache 
+      - sudo ldconfig /home/ec2-user/base/lib
+      
+  - Add bin dir path to PATH
+       - export PATH=/home/ec2-user/base/bin:$PATH
+ 
+====  ====
