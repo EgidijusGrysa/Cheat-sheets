@@ -25,7 +25,7 @@ https://www.postgresql.org/ftp/source/
  
 ==== Starting the DB ====
 
-   - initdb -D <data dir>
+   - initdb -D <data dir> -U user -W *promt password*
    - pg_ctl start -D <data dir>
 
 
