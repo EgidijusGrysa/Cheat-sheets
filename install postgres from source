@@ -23,4 +23,18 @@ https://www.postgresql.org/ftp/source/
   - Add bin dir path to PATH
        - export PATH=/home/ec2-user/base/bin:$PATH
  
-====  ====
+==== Starting the DB ====
+
+   - initdb -D <data dir>
+   - pg_ctl start -D <data dir>
+
+
+Notes:
+   - the best approach for handling the data directory is to keep it where there is enough space
+   - usually sysadmins will have special disks/storages/volumes attached into the instance..
+   - those volumes will be mounted somewhere like /mnt/DATA
+   - then you can create the directory inside it ---> /mnt/DATA/pgdata12
+         chown postgres:postgres /mnt/DATA/pgdata12
+         chmod go-rwx /mnt/DATA/pgdata12
+         export PGDATA=/mnt/DATA/pgdata12
+   - then make sure the /mnt/DATA mounting point is in your /etc/fstab so it will be automatically mounted in case of a reboot
