@@ -64,3 +64,33 @@ Connect to DB:
   FROM pg_stat_activity 
  WHERE now() - state_change > '5 minutes'::interval 
   AND state = 'idle';
+  
+
+
+Check for orphaned files in PG
+----------------------
+SELECT pg_size_pretty(pg_database_size('basedata'));
+
+
+SELECT pg_size_pretty(SUM(pg_relation_size(oid))) FROM pg_class;
+
+
+
+SELECT pg_size_pretty(sum(pg_total_relation_size(oid))) FROM pg_class WHERE relkind IN ('r','m','S') AND NOT relisshared;
+
+
+SELECT pg_size_pretty(sum(pg_total_relation_size(oid))) FROM pg_class WHERE relkind IN ('r','m','S') AND NOT relisshared;
+
+
+
+SELECT pg_size_pretty(sum(pg_total_relation_size(oid))) FROM pg_class WHERE relkind IN ('r','m','S','i','t') AND NOT relisshared;
+
+
+
+SELECT pg_size_pretty(total_size_bytes) AS total_file_size
+        , pg_size_pretty(real_size_bytes) AS real_size
+        , pg_size_pretty(total_size_bytes-real_size_bytes) AS difference
+        , (total_size_bytes-real_size_bytes) AS difference_bytes
+    FROM ( SELECT pg_database_size(current_database()) AS total_size_bytes
+                 , sum(pg_relation_size(oid)) AS real_size_bytes
+             FROM pg_class) s
