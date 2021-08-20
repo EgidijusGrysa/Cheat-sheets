@@ -1,0 +1,32 @@
+**Add pglogical to shared_preload_libraries**
+
+- CREATE EXTENSION pglogical;
+
+**create the provider node:**
+
+	- SELECT pglogical.create_node(
+    node_name := 'provider_test',
+    dsn := 'host=<RDS-ENDPOINT-HERE-SOURCE> port=5432 dbname=<Database name here>');
+
+**create a replication set:**
+
+	- SELECT pglogical.create_replication_set('test_replication_set');
+
+**add tables to the replication set**
+
+	- SELECT pglogical.replication_set_add_table('test_replication_set','test_pglogical'); 
+  
+**Create subscriber node on target**
+
+  - SELECT pglogical.create_node(
+    node_name := 'subscriber1',
+    dsn := 'host=thishost port=5432 dbname=db');
+    
+**Create the subscription**
+
+  - SELECT pglogical.create_subscription(
+    subscription_name := 'subscription1',
+    provider_dsn := 'host=providerhost port=5432 dbname=db');
+    
+    
+ **Ref -** https://www.2ndquadrant.com/en/resources/pglogical/pglogical-docs/
